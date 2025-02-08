@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Library
+{% endblock %}
+
+{% block main %}
+
+    <h2>My Library</h2>
+
+    <!-- Форма пошуку -->
+    <form method="GET" action="{{ url_for('library') }}" class="search-form">
+        <input type="text" name="q" placeholder="Search in library..." value="{{ request.args.get('q', '') }}" class="search-input">
+        <button type="submit" class="search-button">Search</button>
+    </form>
+
+    {% if user_games %}
+        <div class="games-container">
+            {% for game in user_games %}
+            <div class="product_item">
+                <a href="{{ url_for('game', game_id=game.id_game) }}">
+                    <img onerror="this.onerror=null; this.src='/static/images/default-game.jpg';"
+                         src="{{ game.image_url or '/static/images/default-game.jpg' }}"
+                         alt="{{ game.title }}">
+                </a>
+                <div class="game-info">
+                    <h3>{{ game.title }}</h3>
+                    <p class="price">${{ "%.2f"|format(game.price) }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No games found in your library.</p>
+    {% endif %}
+
+{% endblock %}

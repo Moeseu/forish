@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Hot games
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-center mb-4">Hot games</h1>
+    <div class="search-container">
+        <form method="GET" action="{{ url_for('index') }}" class="search-form">
+            <div class="search-controls">
+                <input type="text" name="search" placeholder="Search for a game..."
+                       value="{{ request.args.get('search', '') }}">
+                <select name="tag">
+                    <option value="">All Tags</option>
+                    {% for tag in tags %}
+                        <option value="{{ tag.tag_name }}"
+                                {% if selected_tag == tag.tag_name %}selected{% endif %}>
+                            {{ tag.tag_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="games-container">
+        {% for game in game_info %}
+        <div class="product_item">
+            <a href="{{ url_for('game', game_id=game.id_game) }}">
+                {% if game.image_url and game.image_url != '' %}
+                    <img onerror="this.onerror=null; this.src='/static/images/default-game.jpg';"
+                         src="{{ game.image_url }}"
+                         alt="{{ game.title }}">
+                {% else %}
+                    <img src="/static/images/default-game.jpg"
+                         alt="{{ game.title }}">
+                {% endif %}
+            </a>
+            <div class="game-info">
+                <h3>{{ game.title }}</h3>
+                <p class="price">${{ "%.2f"|format(game.price) }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
