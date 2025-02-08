@@ -1,4 +1,4 @@
-# Game Store
+# Game Store "Forish"
 
 #### Video Demo: <URL HERE>
 
