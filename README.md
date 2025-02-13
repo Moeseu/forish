@@ -1,6 +1,6 @@
 # Game Store "Forish"
 
-#### Video Demo: <URL HERE>
+#### Video Demo: [<URL HERE>](https://youtu.be/0jfWoOzDLcI)
 
 ## Description:
 
